@@ -19,8 +19,9 @@ namespace CSVImporter.Services
         {
             var fileExtension = Path.GetExtension(file.FileName);
             var filename = Guid.NewGuid().ToString() + fileExtension;
-            var filepath = Path.Combine(Directory.GetCurrentDirectory().Replace("\\bin\\Debug\\net6.0", String.Empty)
-                , "files", filename);
+            var dir = Path.Combine(Directory.GetCurrentDirectory().Replace("\\bin\\Debug\\net6.0", String.Empty), "files");
+            var filepath = Path.Combine(dir, filename);
+            Directory.CreateDirectory(dir);
             using (FileStream fs = File.Create(filepath))
             {
                 file.CopyTo(fs);
